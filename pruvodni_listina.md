@@ -27,9 +27,9 @@ Cílem projektu je připravit sadu SQL, která poskytne datový podklad k odpov�
 
 ## Obsah repozitáře
 Projekt je uložen v repozitáři se třemi hlavními soubory:
-    - README.md – obsahuje úvod k projektu, popis datových sad a metodologie
-    - project_01_simona_mensikova.sql – SQL skript obsahující všechny dotazy a výpočty použité v analýze
-    - pruvodni_listina.md – dokument popisující projekt, jeho cíle, metodiku a odpovědi na výzkumné otázky
+- README.md – obsahuje úvod k projektu, popis datových sad a metodologie
+- project_01_simona_mensikova.sql – SQL skript obsahující dotazy a výpočty použité v analýze
+- pruvodni_listina.md – dokument popisující projekt, cíle, metodiku a odpovědi na výzkumné otázky
 
 ## Postup analýzy
 1. Vytvoření hlavní tabulky (t_simona_mensikova_project_SQL_primary_final)
