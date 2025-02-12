@@ -1,14 +1,17 @@
 # Salary and Food Price Analysis Project
 
-This project analyzes the relationship between wages, food prices, and GDP growth in Czechia. It examines how average salaries in various industries change over the years, tracks the prices of staple foods, and compares the growth rates of salaries and food prices. The data is sourced from payrolls, food price categories, and GDP records. This project aims to identify trends, including periods when food prices grew faster than wages or when GDP growth outpaced wage and food price changes.
-
-## Project Description
-This project is a comprehensive analysis of Czechia's salary and food price data. The SQL queries and views were designed to answer the following questions:
+This project analyzes the dynamics between wages, food prices, and GDP growth in Czechia, focusing on identifying trends across various industries and food categories.The SQL queries and views were designed to answer the following questions:
 1. Are wages growing or declining in different industries over the years?
 2. How much milk and bread can be purchased with the average salary in the first and last years of available data?
 3. Which food category has the slowest annual price growth?
 4. In which years did food price increases outpace wage growth by more than 10%?
 5. Is there a correlation between GDP growth and changes in salaries and food prices?
+
+## Repository Contents
+The project is stored in a repository with three main files:
+- README.md – contains an introduction to the project, a description of the datasets, and methodology
+- project_01_simona_mensikova.sql – SQL script containing queries and calculations used in the analysis
+- pruvodni_listina.md – document describing the project, objectives, methodology, and answers to research questions
 
 ## Requirements
 - SQL database (e.g., MySQL, PostgreSQL, etc.)
