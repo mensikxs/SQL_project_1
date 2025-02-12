@@ -1,10 +1,11 @@
 # Analýza mezd a cen potravin
 
 ## Úvod 
-Tento projekt se zabývá analýzou dynamiky mezi mzdami, cenami potravin a růstem HDP v Česku, přičemž se zaměřuje na identifikaci trendů v různých odvětvích a kategoriích potravin.
+Tento projekt analyzuje vztah mezi mzdami, cenami potravin a růstem HDP v Česku. Zkoumá, jak se průměrné mzdy v různých odvětvích mění v průběhu let, sleduje ceny základních potravin a porovnává tempo růstu mezd a cen potravin. Data pocházejí z výplatních pásek, kategorií cen potravin a záznamů o HDP. Cílem projektu je identifikovat trendy, včetně období, kdy ceny potravin rostly rychleji než mzdy, nebo kdy růst HDP předčil změny mezd a cen potravin.
 
 ## Použité technologie
 Projekt byl realizován v prostředí DBeaver s využitím databázového systému MariaDB. SQL dotazy byly psány a testovány v tomto prostředí. Data byla zpracována pomocí relačních operací, agregací a výpočtů meziročních změn.
+Seznam použitých datových sad je uveden v souboru README.md.
 
 ## Cíl
 Cílem projektu je připravit sadu SQL, která poskytne datový podklad k odpovězení na několik následujících otázek:
@@ -13,23 +14,6 @@ Cílem projektu je připravit sadu SQL, která poskytne datový podklad k odpov�
    3. Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroční nárůst)?
    4. Existuje rok, ve kterém byl meziroční nárůst cen potravin výrazně vyšší než růst mezd (větší než 10 %)?
    5. Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výrazněji v jednom roce, projeví se to na cenách potravin či mzdách ve stejném nebo násdujícím roce výraznějším růstem?
-
-## Použité datové sady:
--  czechia_payroll: obsahuje údaje o mzdách v různých průmyslových odvětvích v ČR
--  czechia_payroll_calculation: číselník kalkulací v tabulce mezd
--  czechia_payroll_industry_branch:  číselník průmyslových odvětví
--  czechia_payroll_unit: číselník jednotek hodnot v tabulce mezd
--  czechia_payroll_value_type: číselník typů hodnot v tabulce mezd
--  czechia_price: obsahuje údaje o cenách vybraných potravin v ČR (Portál otevřených dat ČR)
--  czechia_price_category: číselník kategorií potravin
--  economies: obsahuje údaje o HDP, GINI, daňové zátěži atd. pro daný stát a rok
--  countries: obsahuje informace o různých zemích (hlavní město, měna, atd.)
-
-## Obsah repozitáře
-Projekt je uložen v repozitáři se třemi hlavními soubory:
-- README.md – obsahuje úvod k projektu, popis datových sad a metodologie
-- project_01_simona_mensikova.sql – SQL skript obsahující dotazy a výpočty použité v analýze
-- pruvodni_listina.md – dokument popisující projekt, cíle, metodiku a odpovědi na výzkumné otázky
 
 ## Postup analýzy
 1. Vytvoření hlavní tabulky (t_simona_mensikova_project_SQL_primary_final)
