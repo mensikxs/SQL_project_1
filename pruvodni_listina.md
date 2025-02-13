@@ -16,24 +16,26 @@ Cílem projektu je připravit sadu SQL, která poskytne datový podklad k odpov�
    5. Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výrazněji v jednom roce, projeví se to na cenách potravin či mzdách ve stejném nebo násdujícím roce výraznějším růstem?
 
 ## Postup analýzy
-1. Vytvoření hlavní tabulky (t_simona_mensikova_project_SQL_primary_final)
+1. Vytvoření hlavní tabulky / Creating a main table
+   - table t_simona_mensikova_project_SQL_primary_final) 
    - sloučení dat o mzdách, cenách potravin a kategoriích potravin
    - filtrování relevantních dat:
        - value_type_code = 5958 – pouze průměrné hrubé mzdy
        - unit_code = 200 – hodnoty pouze v CZK
        - calculation_code = 100 – fyzický počet zaměstnanců
-2. Analýza růstu mezd (yearly_avg_salary)
+2. Analýza růstu mezd / Salary trends analysis
    - výpočet průměrné mzdy pro každé odvětví a rok
    - srovnání meziročního růstu/klesání mezd
-3. Analýza kupní síly (milk_bread_filtered)
+3. Analýza kupní síly / Purchasing power analysis
    - výpočet množství chleba a mléka, které lze koupit za průměrnou mzdu
-4. Analýza růstu cen potravin (yearly_avg_prices)
+4. Analýza růstu cen potravin / Food category price growth
    - výpočet průměrné ceny potravin podle kategorií
    - identifikace nejpomalejšího meziročního růstu
-5. Srovnání růstu mezd a cen potravin (growth_comparison)
+5. Srovnání růstu mezd a cen potravin / Comparison of wage growth and food price growth
    - výpočet meziročního růstu mezd
    - detekce let s vyšším růstem cen potravin než mezd (>10 %)
-6. Analýza vlivu HDP na mzdy a ceny potravin (t_simona_mensikova_project_SQL_secondary_final)
+6. Analýza vlivu HDP na mzdy a ceny potravin / GDP impact on salaries and food prices
+   - table t_simona_mensikova_project_SQL_secondary_final
    - spojení dat o HDP se mzdami a cenami potravin
    - výpočet meziročního růstu HDP (gdp_growth), mezd (salary_growth) a cen potravin (food_price_growth)
    - zjištění souvislostí mezi růstem HDP a růstem mezd a cen potravin (gdp_salary_food_comparison)
