@@ -10,7 +10,7 @@ This project analyzes the dynamics between wages, food prices, and GDP growth in
 ## Repository Contents
 The project is stored in a repository with three main files:
 - README.md – contains an introduction to the project, a description of the datasets, and methodology
-- project_01_simona_mensikova.sql – SQL script containing queries and calculations used in the analysis
+- project_01.sql – SQL script containing queries and calculations used in the analysis
 - pruvodni_listina.md – document describing the project, objectives, methodology, and answers to research questions
 
 ## Requirements
