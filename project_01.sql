@@ -1,6 +1,27 @@
--- Creating main table for the project
--- Combines salary data, food prices, and food categories into a single table.
--- NOTE: This table excludes records with NULL values in salary, price, or category names.
+-- =======================================================================
+-- project_01.sql: první projekt do Engeto Online Datové Akademie
+-- author: Simona Menšíková
+-- email: mensikxs@gmail.com
+-- discord: mensikxs@gmail.com
+-- =======================================================================
+
+-- ===========================
+-- DESCRIPTION
+-- ===========================
+-- This script performs various analyses on salary and food price data.
+-- It includes the following sections:
+-- 1. Creating a main table that combines payroll, food prices, and categories
+-- 2. Analyzing salary trends across industries
+-- 3. Investigating purchasing power (milk and bread)
+-- 4. Identifying the food category with the slowest price growth
+-- 5. Comparing wage growth and food price growth
+-- 6. Analyzing the effect of GDP growth on salaries and food prices
+
+-- ===========================
+-- 1. CREATE MAIN TABLE
+-- ===========================
+-- This section creates the primary table that combines salary data, food 
+-- prices, and food categories into one structured table for analysis.
 
 CREATE TABLE t_simona_mensikova_project_SQL_primary_final AS
 SELECT 
@@ -26,9 +47,13 @@ WHERE cpay.value_type_code = 5958 -- The average gross wage per employee
   AND cpc.name IS NOT NULL
   AND cp.value IS NOT NULL;
 
--- 1) Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
--- Are salaries increasing across industries over the years or decreasing in some?
+-- ===========================
+-- 2. SALARY TRENDS ANALYSIS
+-- ===========================
+-- This section analyzes whether salaries are increasing or decreasing 
+-- in different industries over the years.
 
+-- Create view for yearly average salaries
 CREATE OR REPLACE VIEW yearly_avg_salary AS
 SELECT 
     industry,
@@ -37,8 +62,7 @@ SELECT
 FROM t_simona_mensikova_project_SQL_primary_final
 GROUP BY industry, payroll_year;
 
--- Output: Industries and years where wages have decreased between consecutive years
--- The query compares the average salary of the current year with the previous year for each industry.
+-- Find industries where wages have decreased between consecutive years
 SELECT 
     curr.industry,
     curr.payroll_year,
@@ -50,12 +74,14 @@ INNER JOIN yearly_avg_salary AS prev
     AND curr.payroll_year = prev.payroll_year + 1
 WHERE curr.avg_salary_yearly < prev.avg_salary_yearly
 ORDER BY curr.industry, curr.payroll_year;
--- Answer: No, in some industries, wages are decreasing.
+-- Outcome: Some industries have seen salary decreases.
 
-/* 2) Kolik je možné si koupit litrů mléka a kilogramů chleba za první 
-a poslední srovnatelné období v dostupných datech cen a mezd?
-*/
--- How much milk and bread can be bought in the first and last comparable periods in the available data?
+-- ===========================
+-- 3. PURCHASING POWER ANALYSIS
+-- ===========================
+-- This section answers how many liters of milk and kilograms of bread 
+-- can be purchased with the average salary in the first and last available 
+-- years of the dataset.
 
 CREATE OR REPLACE VIEW milk_bread_filtered AS (
     SELECT 
@@ -73,18 +99,19 @@ CREATE OR REPLACE VIEW milk_bread_filtered AS (
     GROUP BY payroll_year, food_category
 );
 
-/*Output: The quantity of milk and bread (in liters and kilograms) that can be bought with 
- the average salary for the first and last years?
- */
 SELECT *,
 	ROUND(mbf.avg_salary/mbf.avg_price, 0) AS purchasable_quantity
 FROM milk_bread_filtered AS mbf
 ORDER BY mbf.food_category, mbf.payroll_year
 ;
--- answer: bread: 2006-1262, 2018-1319; milk: 2006-1409, 2018-1614
+-- Outcome: 
+-- Bread: 2006 - 1262 kg, 2018 - 1319 kg
+-- Milk: 2006 - 1409 l, 2018 - 1614 l
 
--- 3) Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroční nárůst)?
--- Which food category has the slowest price increase (lowest annual percentage growth)?
+-- ===========================
+-- 4. FOOD CATEGORY PRICE GROWTH
+-- ===========================
+-- This section identifies the food category with the slowest price increase.
 
 CREATE OR REPLACE VIEW yearly_avg_prices AS
 SELECT 
@@ -95,8 +122,6 @@ FROM t_simona_mensikova_project_SQL_primary_final
 WHERE price IS NOT NULL -- Excludes records with NULL price values
 GROUP BY food_category, price_year;
 
--- Intermediate Result: `price_growth`
--- Calculates the annual percentage price growth for each food category.
 CREATE OR REPLACE VIEW price_growth AS
 SELECT 
     curr.food_category,
@@ -109,7 +134,7 @@ FROM yearly_avg_prices AS curr, yearly_avg_prices AS prev
 WHERE curr.food_category = prev.food_category
   AND curr.price_year = prev.price_year + 1;
 
--- Output: The food category with the lowest average yearly price growth.
+-- Output the food category with the lowest average yearly price growth
 SELECT 
     food_category,
     AVG(percent_growth) AS avg_yearly_growth
@@ -117,11 +142,15 @@ FROM price_growth
 GROUP BY food_category
 ORDER BY avg_yearly_growth ASC
 LIMIT 1;
--- answer: Sugar
+-- Outcome: Sugar is the food category with the slowest price increase.
 
--- 4) Existuje rok, ve kterém byl meziroční nárůst cen potravin výrazně vyšší než růst mezd (větší než 10 %)?
--- Is there a year in which the annual increase in food prices was significantly higher than wage growth (greater than 10 %)?
+-- ===========================
+-- 5. COMPARISON OF WAGE GROWTH AND FOOD PRICE GROWTH
+-- ===========================
+-- This section calculates Year-over-Year wage growth and food price growth,
+-- and identifies the years where food price increases were more than 10% greater than wage growth.
 
+-- Create view for yearly salary growth
 CREATE OR REPLACE VIEW salary_growth AS
 SELECT 
     curr.industry,
@@ -146,23 +175,18 @@ INNER JOIN salary_growth AS sg
 GROUP BY pg.current_year;
 
 -- Output: The years in which food price growth outpaced salary growth by more than 10 %
--- Filters for years where the difference exceeds 10 %
 SELECT current_year, avg_food_price_growth, avg_salary_growth, growth_difference
 FROM growth_comparison
 WHERE growth_difference > 10
 ORDER BY current_year;
--- answer: No
+-- Outcome: No, there are no years where food price growth exceeded wage growth by more than 10%.
 
-/* 5) Má výška HDP vliv na změny ve mzdách a cenách potravin? 
-Neboli, pokud HDP vzroste výrazněji v jednom roce, projeví se to na cenách potravin 
-či mzdách ve stejném nebo násdujícím roce výraznějším růstem?
-Does GDP growth influence changes in wages and food prices? If GDP grows significantly 
-in one year, does it lead to a significant increase in salaries or food prices in the same 
-or following year?
-*/
+-- ===========================
+-- 6. GDP IMPACT ON SALARIES AND FOOD PRICES
+-- ===========================
+-- This section analyzes the effect of GDP growth on salaries and food prices.
 
--- Creates a secondary table with GDP data and country information.
-CREATE TABLE t_simona_mensikova_project_SQL_secondary_final AS (
+-- Create secondary table with GDP and country informationCREATE TABLE t_simona_mensikova_project_SQL_secondary_final AS (
 SELECT
 	economies.country,
 	economies.`year` ,
@@ -174,7 +198,7 @@ LEFT JOIN countries
 	ON economies.country = countries.country
 );
 
--- GDP Growth Calculation
+-- Calculate GDP growth
 CREATE OR REPLACE VIEW gdp_growth AS
 SELECT 
     year,
@@ -182,7 +206,7 @@ SELECT
 FROM t_simona_mensikova_project_SQL_secondary_final
 GROUP BY year;
 
--- Salary Growth Calculation
+-- Calculate salary growth
 CREATE OR REPLACE VIEW salary_growth AS
 SELECT 
     payroll_year AS year,
@@ -190,7 +214,7 @@ SELECT
 FROM yearly_avg_salary
 GROUP BY payroll_year;
 
--- Food Price Growth Calculation
+-- Calculate food price growth
 CREATE OR REPLACE VIEW food_price_growth AS
 SELECT 
     price_year AS year,
@@ -198,7 +222,7 @@ SELECT
 FROM yearly_avg_prices
 GROUP BY price_year;
 
--- Comparison between GDP growth, salary growth, and food price growth
+-- Compare GDP, salary, and food price growth
 CREATE OR REPLACE VIEW gdp_salary_food_comparison AS
 SELECT 
     g.year AS year,
@@ -209,7 +233,7 @@ FROM gdp_growth g
 LEFT JOIN salary_growth s ON g.year = s.year
 LEFT JOIN food_price_growth f ON g.year = f.year;
 
--- Output: Years when GDP growth exceeded both salary and food price growth
+-- Output years where GDP growth exceeded both salary and food price growth
 SELECT 
     year,
     gdp_growth,
@@ -218,16 +242,7 @@ SELECT
 FROM gdp_salary_food_comparison
 WHERE gdp_growth > salary_growth AND gdp_growth > price_growth -- Filters for years with higher GDP growth than both salary and food prices
 ORDER BY year;
--- answer: Yes
-
-
-
-
-
-
-
-
-
+-- Outcome: Yes, GDP growth can influence changes in wages and food prices. GDP growth exceeded both salary and food price growth in certain years.
 
 
 
