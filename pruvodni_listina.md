@@ -1,7 +1,7 @@
 # Analýza mezd a cen potravin
 
 ## Úvod 
-Tento projekt analyzuje vztah mezi mzdami, cenami potravin a růstem HDP v Česku. Zkoumá, jak se průměrné mzdy v různých odvětvích mění v průběhu let, sleduje ceny základních potravin a porovnává tempo růstu mezd a cen potravin. Data pocházejí z výplatních pásek, kategorií cen potravin a záznamů o HDP. Cílem projektu je identifikovat trendy, včetně období, kdy ceny potravin rostly rychleji než mzdy, nebo kdy růst HDP předčil změny mezd a cen potravin.
+Tento projekt analyzuje vztah mezi mzdami, cenami potravin a růstem HDP v Česku. Zkoumá, jak se průměrné mzdy v různých odvětvích mění v průběhu let, sleduje ceny základních potravin a porovnává tempo růstu mezd a cen potravin. Cílem projektu je identifikovat trendy, včetně období, kdy ceny potravin rostly rychleji než mzdy, nebo kdy růst HDP předčil změny mezd a cen potravin.
 
 ## Použité technologie
 Projekt byl realizován v prostředí DBeaver s využitím databázového systému MariaDB. SQL dotazy byly psány a testovány v tomto prostředí. Data byla zpracována pomocí relačních operací, agregací a výpočtů meziročních změn.
@@ -17,7 +17,7 @@ Cílem projektu je připravit sadu SQL, která poskytne datový podklad k odpov�
 
 ## Postup analýzy
 1. Vytvoření hlavní tabulky / Creating a main table
-   - table t_simona_mensikova_project_SQL_primary_final) 
+   - table t_simona_mensikova_project_SQL_primary_final
    - sloučení dat o mzdách, cenách potravin a kategoriích potravin
    - filtrování relevantních dat:
        - value_type_code = 5958 – pouze průměrné hrubé mzdy
