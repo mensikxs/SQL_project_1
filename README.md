@@ -2,7 +2,7 @@
 
 This project analyzes the dynamics between wages, food prices, and GDP growth in Czechia, focusing on identifying trends across various industries and food categories.The SQL queries and views were designed to answer the following questions:
 1. Are wages growing or declining in different industries over the years?
-2. How much milk and bread can be purchased with the average salary in the first and last years of available data?
+2. How much milk and bread can be purchased with the average salary in the first and last year of available data?
 3. Which food category has the slowest annual price growth?
 4. In which years did food price increases outpace wage growth by more than 10%?
 5. Is there a correlation between GDP growth and changes in salaries and food prices?
