@@ -242,7 +242,8 @@ SELECT
 FROM gdp_salary_food_comparison
 WHERE gdp_growth > salary_growth AND gdp_growth > price_growth -- Filters for years with higher GDP growth than both salary and food prices
 ORDER BY year;
--- Outcome: Yes, GDP growth can influence changes in wages and food prices. GDP growth exceeded both salary and food price growth in certain years.
+-- Outcome: Yes, GDP growth can influence changes in wages and food prices. 
+-- GDP growth exceeded both salary and food price growth in certain years.
 
 
 
